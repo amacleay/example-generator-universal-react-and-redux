@@ -1,8 +1,9 @@
 // Uses React Router as a wrapper to our components.
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { Route, Router, IndexRoute } from 'react-router';
+import { Route, Router, hashHistory, IndexRoute } from 'react-router';
 import AppShell from './containers/AppShell.jsx';
+import OtherAppShell from './containers/OtherAppShell.jsx';
 
 // Polyfill for server side rendering of application
 if (typeof require.ensure !== 'function') {
@@ -17,14 +18,17 @@ if (typeof require.ensure !== 'function') {
  * and load each file in lazily to reduce initial load.
  */
 export default (
-   // App Shell
-   <Route component={AppShell} path='/'>
-    // Home Page (Index /)
-    <IndexRoute getComponent={(next, cb) => {
-      require.ensure([], (require) => {
-        cb(null, require('./containers/Home.jsx'));
-      });
-    }}/>
-    // Other Pages.
-  </Route>
+  // App Shell
+  <Router history={hashHistory}>
+    <Route component={AppShell} path='/'>
+      // Home Page (Index /)
+      <IndexRoute getComponent={(next, cb) => {
+        require.ensure([], (require) => {
+          cb(null, require('./containers/Home.jsx'));
+        });
+      }}/>
+    </Route>
+    <Route path='/other' component={OtherAppShell}>
+    </Route>
+  </Router>
 );
