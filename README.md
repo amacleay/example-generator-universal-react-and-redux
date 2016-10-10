@@ -9,7 +9,7 @@ Bootstrapped with
 ```
 cd `mktemp -d`
 npm install yo generator-universal-react-and-redux
-node_modules/.bin.yo universal-react-and-redux
+node_modules/.bin/yo universal-react-and-redux
 ```
 
 To run,
